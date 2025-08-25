@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -10,6 +11,25 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+});
+
+// Local brand fonts
+const walter = localFont({
+  variable: "--font-walter",
+  src: [
+    { path: "../public/fonts/ABCWalterNeue-Extrafett.woff2", weight: "800", style: "normal" },
+    { path: "../public/fonts/ABCWalterNeue-Normal.woff2", weight: "400", style: "normal" },
+  ],
+  display: "swap",
+});
+
+const simon = localFont({
+  variable: "--font-simon",
+  src: [
+    { path: "../public/fonts/ABCSimonMono-Regular.woff2", weight: "400", style: "normal" },
+    { path: "../public/fonts/ABCSimonMono-Medium.woff2", weight: "500", style: "normal" },
+  ],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -25,7 +45,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${walter.variable} ${simon.variable} antialiased`}
       >
         {children}
       </body>

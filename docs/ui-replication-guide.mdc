@@ -1,0 +1,140 @@
+---
+description:
+globs:
+alwaysApply: false
+---
+# UI Replication Guide
+
+This rule provides a structured approach to replicating website UIs from screenshots using React and Tailwind CSS.
+
+## Screenshot Analysis Process
+
+1. **Examine the Layout Structure**
+   - Identify the major sections (header, hero, features, testimonials, footer)
+   - Note the grid system and overall container structure
+   - Identify responsive breakpoints (mobile, tablet, desktop)
+
+2. **Extract Design Elements**
+   - Colors: Primary, secondary, accent, background, text
+   - Typography: Font families, sizes, weights, line heights
+   - Spacing: Margins, padding, gaps between elements
+   - Shadows, borders, and other decorative elements
+
+3. **Component Identification**
+   - Break down the UI into reusable components
+   - Note similar patterns that can be abstracted
+
+## Implementation Guidelines
+
+### Colors & Theme
+
+When provided with color codes:
+- Add them to the Tailwind config in `tailwind.config.js`:
+```js
+module.exports = {
+  theme: {
+    extend: {
+      colors: {
+        'brand': {
+          50: '#f9fafb',
+          // Add provided colors here
+          500: '#3b82f6', // Example blue
+          900: '#1e3a8a',
+        },
+      },
+    },
+  },
+}
+```
+
+### Typography
+
+For fonts:
+1. Import web fonts in `index.html` or via CSS
+2. Configure in Tailwind:
+```js
+module.exports = {
+  theme: {
+    extend: {
+      fontFamily: {
+        'sans': ['"Provided Font"', 'ui-sans-serif', 'system-ui', /* fallbacks */],
+        'heading': ['"Special Heading Font"', /* fallbacks */],
+      },
+    },
+  },
+}
+```
+
+### Responsive Design
+
+Follow these breakpoints when implementing responsive designs:
+- Mobile first: Base styles for small screens
+- sm: 640px and up
+- md: 768px and up
+- lg: 1024px and up
+- xl: 1280px and up
+- 2xl: 1536px and up
+
+Example responsive implementation:
+```jsx
+<div className="px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16">
+  {/* Content adapts to different screen sizes */}
+</div>
+```
+
+### Image Handling
+
+For images provided in screenshots:
+1. Save images in the `public` directory or import them into components
+2. Use responsive image techniques:
+```jsx
+<img 
+  src="/path/to/image.jpg" 
+  alt="Descriptive text"
+  className="w-full h-auto object-cover md:object-contain lg:object-fill"
+/>
+```
+
+### Component Structure
+
+Build components that match the screenshot UI:
+- Create separate component files in `src/components/`
+- Follow naming conventions that reflect the UI section
+- Implement the component with Tailwind classes that match the design
+
+Example implementation:
+```jsx
+// For a testimonial card from screenshots
+export function TestimonialCard({ name, role, content, image }) {
+  return (
+    <div className="bg-white rounded-lg shadow-lg p-6">
+      <div className="flex items-center mb-4">
+        <img src={image} alt={name} className="h-12 w-12 rounded-full mr-4" />
+        <div>
+          <h3 className="text-lg font-medium text-gray-900">{name}</h3>
+          <p className="text-sm text-gray-600">{role}</p>
+        </div>
+      </div>
+      <p className="text-gray-700">{content}</p>
+    </div>
+  );
+}
+```
+
+## Verification Process
+
+After implementation:
+1. Compare side-by-side with screenshots at different viewport sizes
+2. Check for pixel-perfect alignment where possible
+3. Verify responsive behavior matches the provided mobile/desktop designs
+4. Ensure font rendering is as close as possible to the screenshots
+
+## Examples
+
+Refer to our existing implementation in [src/components/Home.jsx](mdc:src/components/Home.jsx) for an example of how to structure a component using Tailwind CSS.
+
+
+
+
+
+
